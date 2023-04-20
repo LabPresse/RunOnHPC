@@ -35,6 +35,11 @@ You need to set up an environmental variable in your machine called "DATAPATH" t
 ```python
 export DATAPATH="/path/to/your/data/"
 ```
+If you are using virtual environments you will also have to run this line in your env. To do that you can run this in your terminal
+```bash
+$ source env/bin/activate
+$ export DATAPATH="/path/to/your/data/"
+```
 
 ## Local Projects
 All of the code you want to run should be in a self contained directory. It cannot import code or modules from other directories. You should organize your code as follows
