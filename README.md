@@ -35,11 +35,27 @@ You need to set up an environmental variable in your machine called "DATAPATH" t
 ```python
 export DATAPATH="/path/to/your/data/"
 ```
-If you are using virtual environments you will also have to run this line in your env. To do that you can run this in your terminal
+If you are using virtual environments you will have to follow these additional steps:
 ```bash
-$ source env/bin/activate
-$ export DATAPATH="/path/to/your/data/"
+cd $CONDA_PREFIX
+mkdir -p ./etc/conda/activate.d
+mkdir -p ./etc/conda/deactivate.d
+touch ./etc/conda/activate.d/env_vars.sh
+touch ./etc/conda/deactivate.d/env_vars.sh
 ```
+Edit ./etc/conda/activate.d/env_vars.sh as follows:
+```bash
+#!/bin/sh
+
+export DATAPATH='path/to/data'
+```
+Edit `./etc/conda/deactivate.d/env_vars.sh` as follows:
+```bash
+#!/bin/sh
+
+unset DATAPATH
+```
+https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#:~:text=Saving%20environment%20variables-,%EF%83%81,-Conda%20environments%20can
 
 ## Local Projects
 All of the code you want to run should be in a self contained directory. It cannot import code or modules from other directories. You should organize your code as follows
