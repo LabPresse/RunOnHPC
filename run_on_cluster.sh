@@ -1,6 +1,10 @@
 #!/bin/bash
 
-# set default values
+# Set ENV variables
+DATAPATH=$(head -n 1 _datapath_.txt)
+PROJECTSPATH=$(head -n 1 _projectspath_.txt)
+
+# Set default values
 program=$0
 project="UNSPECIFIED"
 username=$(head -n 1 _username_.txt)
@@ -12,7 +16,7 @@ nodes=""
 time="7-00:00"
 language="python"
 
-# get command line arguments
+# Get command line arguments
 while [[ "$#" -ge 1 ]]; do
     case "$1" in
         -t|--time)
@@ -103,7 +107,7 @@ mkdir $dirname
 
 # Copy project onto cluster
 echo '(2/3) ... copying project ...'
-sshpass -p "$password" rsync -av --exclude=.* --exclude=_* --exclude=env/ --exclude=data/* --exclude=Data/* --exclude=Outfiles/* --exclude=outfiles/* --exclude=pics/* --exclude=old/* --exclude=*.log "../$project/" "$username@agave.asu.edu:/home/$username/$dirname/"
+sshpass -p "$password" rsync -av --exclude=.* --exclude=_* --exclude=env/ --exclude=data/* --exclude=Data/* --exclude=Outfiles/* --exclude=outfiles/* --exclude=pics/* --exclude=old/* --exclude=*.log "$PROJECTSPATH$project/" "$username@agave.asu.edu:/home/$username/$dirname/"
 
 # Create job file and submit jobs
 echo '(3/3) ... running jobs ...'

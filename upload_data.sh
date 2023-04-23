@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Set ENV variables
+DATAPATH=$(head -n 1 _datapath_.txt)
+PROJECTSPATH=$(head -n 1 _projectspath_.txt)
+
 my_name=$(head -n 1 _username_.txt)
 password=$(head -n 1 _password_.txt)
 

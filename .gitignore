@@ -21,3 +21,6 @@ bin-release/
 # Do not save credentials in the repository
 _password_.txt
 _username_.txt
+_datapath_.txt
+_projectpath_.txt
+
