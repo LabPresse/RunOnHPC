@@ -7,12 +7,11 @@ PROJECTSPATH=$(head -n 1 _projectspath_.txt)
 my_name=$(head -n 1 _username_.txt)
 password=$(head -n 1 _password_.txt)
 project=$1
-savepath=$2
-
-# If savepath not specified, set to "outfiles"
-if [[ -z $savepath ]]
+if [ -z "$2" ]
 then
   savepath="outfiles"
+else
+  savepath=$2
 fi
 
 echo "Copying $project outfiles..."
