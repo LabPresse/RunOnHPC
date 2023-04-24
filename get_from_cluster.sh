@@ -7,6 +7,13 @@ PROJECTSPATH=$(head -n 1 _projectspath_.txt)
 my_name=$(head -n 1 _username_.txt)
 password=$(head -n 1 _password_.txt)
 project=$1
+savepath=$2
+
+# If savepath not specified, set to "outfiles"
+if [[ -z $savepath ]]
+then
+  savepath="outfiles"
+fi
 
 echo "Copying $project outfiles..."
 
@@ -17,8 +24,8 @@ do
   if [[ $directory = $project* ]]
   then
     echo "$directory"
-    path_agave="$my_name@agave.asu.edu:/home/$my_name/$directory/outfiles/*"
-    path_local="$PROJECTSPATH$project/outfiles/."
+    path_agave="$my_name@agave.asu.edu:/home/$my_name/$directory/$savepath/*"
+    path_local="$PROJECTSPATH$project/$savepath/."
     sshpass -p "$password" rsync -rv "$path_agave" "$path_local"
   fi
 done
