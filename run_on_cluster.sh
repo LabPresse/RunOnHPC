@@ -85,10 +85,10 @@ loadmodule="
 set -x
 module load anaconda/py3
 "
-extension="py"
+mainfile="-u main.py"
 elif [[ "$language" == "julia" ]]; then
 loadmodule=""
-extension="jl"
+mainfile="main.jl"
 fi
 
 # specify save name
@@ -134,7 +134,7 @@ $loadnodes
 export DATAPATH="/home/$username/Data/"
 $loadmodule
 
-$language main.$extension \$i
+$language $mainfile \$i
 
 " > ".slurmfiles/job"\$i".sh"
 
