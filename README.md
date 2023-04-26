@@ -20,9 +20,6 @@ In order to run these scripts you must organize your code in a certain way. In t
 In this repository you should save your ASU username and password in `_password_.txt` and `_username_.txt` directly in this repository. Make sure that these are inlcuded in .gitignore otherwise the world will have access to your info.
 NOTE: this is clearly not the best way to do this, we will have to fix this in future versions.
 
-## Local Paths
-Similarly to saving credentials you will also need to save the paths to your data directory and your projects folder in `_datapath_.txt` and `_projectpath_.txt` respectively.
-
 ## Local Data
 All of your data, for all of your projects, should be stored in a single directory called "Data" that lives somewhere on your local machine. Within `Data/` you should have sub directories for each of your projects
 ```markdown
@@ -56,6 +53,38 @@ Projects/
         ...
 ```
 This is somewhat flexible, but the most important parts are: 1) All the projects you want to run on Agave are stored in the directory specified in your `_projectpath_.txt` file (see Local Paths); 2) all your results are only saved in `outfiles/` and `pics/`; 3) You run your code using a main file called "main.py", "main.jl", etc. We explain the main file next.
+
+## Local Paths
+You need to set up an environmental variable in your machine called "DATAPATH" that points to your data directory and a variables "PROJECTPATH" that points to your projects directory. To create a DATAPATH environmental variable simply add this line to your ~/.bashrc file (~/.bash_profile on macOS):
+```python
+export DATAPATH="/path/to/your/data/"
+export PROJECTPATH="path/to/your/projects/
+```
+If you are using virtual environments you will also have to run this line in your env. To do that you can run this in your terminal
+If you are using virtual environments you will have to follow these additional steps:
+```bash
+$ source env/bin/activate
+$ export DATAPATH="/path/to/your/data/"
+$ export PROJECTPATH="/path/to/your/projects/
+cd $CONDA_PREFIX
+mkdir -p ./etc/conda/activate.d
+mkdir -p ./etc/conda/deactivate.d
+touch ./etc/conda/activate.d/env_vars.sh
+touch ./etc/conda/deactivate.d/env_vars.sh
+```
+Edit ./etc/conda/activate.d/env_vars.sh as follows:
+```bash
+#!/bin/sh
+export DATAPATH='path/to/data'
+export PROJECTPATH='path/to/projects/'
+```
+Edit `./etc/conda/deactivate.d/env_vars.sh` as follows:
+```bash
+#!/bin/sh
+unset DATAPATH
+unset PROJECTPATH
+```
+https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#:~:text=Saving%20environment%20variables-,%EF%83%81,-Conda%20environments%20can
 
 ## Main File
 Your main file should have all the code needed to execute your script. Your main file should load data using the environmental variable, DATAPATH, and it should not use local paths. For example to load a csv in python you would use
