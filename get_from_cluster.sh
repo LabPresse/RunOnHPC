@@ -23,7 +23,7 @@ do
   then
     echo "$directory"
     path_agave="$my_name@agave.asu.edu:/home/$my_name/$directory/$savepath/*"
-    path_local="$PROJECTSPATH$project/$savepath/."
+    path_local="$PROJECTPATH$project/$savepath/."
     sshpass -p "$password" rsync -rv "$path_agave" "$path_local"
   fi
 done
