@@ -112,6 +112,7 @@ sshpass -p "$password" ssh -T "$username@agave.asu.edu"<< !
 
 cd /scratch/$username/$dirname
 mkdir .slurmfiles
+mkdir outfiles
 
 for (( i=0; i<$num_jobs; i++ ))
 do
