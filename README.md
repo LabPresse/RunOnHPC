@@ -111,9 +111,9 @@ data = # Load data
 ```
 
 ## Agave Orgainization.
-In your home directory on Agave, `username@agave.asu.edu:/home/username`, you shoule have a directory called "Data" like
+In your home directory on Agave, `username@agave.asu.edu:/scratch/username`, you shoule have a directory called "Data" like
 ```markdown
-home/
+scratch/
     username/
         Data/
 ```

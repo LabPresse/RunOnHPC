@@ -98,18 +98,19 @@ echo "Starting cluster for $project ..."
 # Create directories on cluster
 echo '(1/3) ... creating directories ...'
 sshpass -p "$password" ssh -T $username@agave.asu.edu<< !
+cd /scratch/$username
 mkdir $dirname
 !
 
 # Copy project onto cluster
 echo '(2/3) ... copying project ...'
-sshpass -p "$password" rsync -av --exclude=.* --exclude=_* --exclude=env/ --exclude=data/* --exclude=Data/* --exclude=Outfiles/* --exclude=outfiles/* --exclude=pics/* --exclude=old/* --exclude=*.log "$PROJECTPATH$project/" "$username@agave.asu.edu:/home/$username/$dirname/"
+sshpass -p "$password" rsync -av --exclude=.* --exclude=_* --exclude=env/ --exclude=data/* --exclude=Data/* --exclude=Outfiles/* --exclude=outfiles/* --exclude=pics/* --exclude=old/* --exclude=*.log "$PROJECTPATH$project/" "$username@agave.asu.edu:/scratch/$username/$dirname/"
 
 # Create job file and submit jobs
 echo '(3/3) ... running jobs ...'
 sshpass -p "$password" ssh -T "$username@agave.asu.edu"<< !
 
-cd $dirname
+cd /scratch/$username/$dirname
 mkdir .slurmfiles
 
 for (( i=0; i<$num_jobs; i++ ))
@@ -125,9 +126,9 @@ $loadnodes
 #SBATCH -e .slurmfiles/job"\$i".err
 #SBATCH -N 1
 #SBATCH -c $num_cores
-#SBATCH -D /home/$username/$dirname
+#SBATCH -D /scratch/$username/$dirname
 
-export DATAPATH="/home/$username/Data/"
+export DATAPATH="/scratch/$username/Data/"
 $loadmodule
 
 $language $mainfile \$i
