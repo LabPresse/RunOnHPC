@@ -13,7 +13,7 @@ fi
 
 # Parse directories
 echo "Copying $project outfiles..."
-directories=$(sshpass -p "$password" ssh "$my_name@agave.asu.edu" ls .)
+directories=$(sshpass -p "$password" ssh "$my_name@agave.asu.edu" "cd /scratch/$my_name; ls .")
 
 # Loop through directories
 for directory in $directories
