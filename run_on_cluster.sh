@@ -104,7 +104,7 @@ mkdir $dirname
 
 # Copy project onto cluster
 echo '(2/3) ... copying project ...'
-sshpass -p "$password" rsync -av --exclude=.* --exclude=_* --exclude=env/ --exclude=data/* --exclude=Data/* --exclude=Outfiles/* --exclude=outfiles/* --exclude=pics/* --exclude=old/* --exclude=*.log "$PROJECTPATH$project/" "$username@agave.asu.edu:/scratch/$username/$dirname/"
+sshpass -p "$password" rsync -av --exclude=.* --exclude=_* --exclude=env/ --exclude=data/* --exclude=Data/* --exclude=Outfiles/* --exclude=outfiles/* --exclude=pics/* --exclude=old/* --exclude=*.log "$PROJECTPATH/$project/" "$username@agave.asu.edu:/scratch/$username/$dirname/"
 
 # Create job file and submit jobs
 echo '(3/3) ... running jobs ...'
@@ -129,7 +129,7 @@ $loadnodes
 #SBATCH -c $num_cores
 #SBATCH -D /scratch/$username/$dirname
 
-export DATAPATH="/scratch/$username/Data/"
+export DATAPATH="/scratch/$username/Data"
 $loadmodule
 
 $language $mainfile \$i

@@ -55,17 +55,17 @@ Projects/
 This is somewhat flexible, but the most important parts are: 1) All the projects you want to run on Agave are stored in the directory specified in your `_projectpath_.txt` file (see Local Paths); 2) all your results are only saved in `outfiles/` and `pics/`; 3) You run your code using a main file called "main.py", "main.jl", etc. We explain the main file next.
 
 ## Local Paths
-You need to set up an environmental variable in your machine called "DATAPATH" that points to your data directory and a variables "PROJECTPATH" that points to your projects directory. To create a DATAPATH environmental variable simply add this line to your ~/.bashrc file (~/.bash_profile on macOS):
+You need to set up an environmental variable in your machine called "DATAPATH" that points to your data directory and a variables "PROJECTPATH" that points to your projects directory. These paths must point to the directory, not the contents of the directory, thus they must not end in '/'. To create a DATAPATH environmental variable simply add this line to your ~/.bashrc file (~/.bash_profile on macOS):
 ```python
-export DATAPATH="/path/to/your/data/"
-export PROJECTPATH="path/to/your/projects/
+export DATAPATH="/path/to/your/data"  # Note that it ends in '/data' NOT '/data/'
+export PROJECTPATH="path/to/your/projects"
 ```
 If you are using virtual environments you will also have to run this line in your env. To do that you can run this in your terminal
 If you are using virtual environments you will have to follow these additional steps:
 ```bash
 $ source env/bin/activate
-$ export DATAPATH="/path/to/your/data/"
-$ export PROJECTPATH="/path/to/your/projects/
+$ export DATAPATH="/path/to/your/data"
+$ export PROJECTPATH="/path/to/your/projects"
 cd $CONDA_PREFIX
 mkdir -p ./etc/conda/activate.d
 mkdir -p ./etc/conda/deactivate.d
@@ -75,8 +75,8 @@ touch ./etc/conda/deactivate.d/env_vars.sh
 Edit ./etc/conda/activate.d/env_vars.sh as follows:
 ```bash
 #!/bin/sh
-export DATAPATH='path/to/data'
-export PROJECTPATH='path/to/projects/'
+export DATAPATH='path/to/data'  # Notice that it ends in '/data' NOT '/data/'
+export PROJECTPATH='path/to/projects'
 ```
 Edit `./etc/conda/deactivate.d/env_vars.sh` as follows:
 ```bash
